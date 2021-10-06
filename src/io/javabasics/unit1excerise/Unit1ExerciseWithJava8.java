@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class Unit1ExerciseWithJava8 {
     public static void main(String[] args) {
@@ -22,28 +24,27 @@ public class Unit1ExerciseWithJava8 {
 
         // Step 2: Create a method that prints all elements in the list
         System.out.println("Print all persons");
-        printAll(people);
+        performConditionally(people, p -> true, p-> System.out.println(p));
         System.out.println();
 
 
         // Step 3: Create a method that prints all people that have last name beginning with C
         System.out.println("Print all persons lastName with R");
-        printConditionally(people,p -> p.getLastName().startsWith("R"));
+        performConditionally(people, p -> p.getLastName().startsWith("R"), p-> System.out.println(p));
 
         System.out.println();
         System.out.println("Print all persons firstName with R");
-        printConditionally(people, p -> p.getFirstName().startsWith("R"));
+        performConditionally(people, p -> p.getFirstName().startsWith("R"), p-> System.out.println(p.getFirstName()));
     }
-    public  static  void printConditionally(List<Person> people,Condition condition){
+
+    // Consumer -- functional interface that accepts a single input argument and returns no result
+    //
+    // predicate takes an object and returns the boolean
+    public  static  void performConditionally(List<Person> people, Predicate<Person> predicate, Consumer<Person> consumer){
         for (Person p : people){
-            if (condition.test(p)){
-                System.out.println(p);
+            if (predicate.test(p)){
+                consumer.accept(p);
             }
-        }
-    }
-    public static void printAll(List<Person> p){
-        for (Person per : p){
-            System.out.println(per);
         }
     }
 }
