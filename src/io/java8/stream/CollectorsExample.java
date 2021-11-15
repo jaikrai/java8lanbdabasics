@@ -19,7 +19,7 @@ public class CollectorsExample {
             Stream<String> stream = reader.lines();
         ){
             stream.map(line ->{
-                String[] s = line.split(" ");
+                String[] s = line.split("");
                 Person p = new Person(s[0].trim(), Integer.parseInt(s[1]));
                 persons.add(p);
                 return p;
